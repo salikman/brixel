@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 (function($) {
+    $('.counter').countUp();
 
     function showModal(id){
 		$(document.body).addClass('main-menu-open');
