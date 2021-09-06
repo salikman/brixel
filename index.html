@@ -81,7 +81,7 @@
 </header>
 
     <main class="is-home">
-        <section class="slider">
+        <section class="slider slider-intro">
     <div class="slide" style="background-image: url('img/slider2.jpg');">
         <div class="container">
             <div class="slide-wrapper">
@@ -125,31 +125,31 @@
         </div>
     </div>
 </section>
-        <section class="services">
+        <section class="home-services">
     <div class="container">
-        <div class="services-header">
-            <h2 class="services__title section-title">Let’s Build <br>Your Dream Together</h2>
-            <div class="services__description">
+        <div class="home-services-header">
+            <h2 class="home-services__title section-title">Let’s Build <br>Your Dream Together</h2>
+            <div class="home-services__description">
                 <p>Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
             </div>
         </div>
-        <ul class="services-list">
-            <li class="services-item" data-aos="zoom-in" data-aos-duration="1000">
+        <ul class="home-services-list">
+            <li class="home-services-item" data-aos="zoom-in" data-aos-duration="1000">
                 <div class="icon"><img src="img/Building-Renovation-Icon.webp" width="85" height="85" alt=""></div>
                 <h4 class="title">Building Renovation</h4>
                 <p class="description">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
             </li>
-            <li class="services-item" data-aos="zoom-in" data-aos-duration="1000">
+            <li class="home-services-item" data-aos="zoom-in" data-aos-duration="1000">
                 <div class="icon"><img src="img/Building-Construction-Icon.webp" width="85" height="85" alt=""></div>
                 <h4 class="title">Building Construction</h4>
                 <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
             </li>
-            <li class="services-item" data-aos="zoom-in" data-aos-duration="1000">
+            <li class="home-services-item" data-aos="zoom-in" data-aos-duration="1000">
                 <div class="icon"><img src="img/Architecture-Design-Icon.webp" width="85" height="85" alt=""></div>
                 <h4 class="title">Architecture Design</h4>
                 <p class="description">Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
             </li>
-            <li class="services-item" data-aos="zoom-in" data-aos-duration="1000">
+            <li class="home-services-item" data-aos="zoom-in" data-aos-duration="1000">
                 <div class="icon"><img src="img/Building-Maintanance-Icon.webp" width="85" height="85" alt=""></div>
                 <h4 class="title">Building Maintenance</h4>
                 <p class="description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -554,5 +554,67 @@
 
 <script src="js/main.js"></script>
 <script>AOS.init();</script>
+
+    <script>
+        var Shuffle = window.Shuffle;
+
+        class Demo {
+            constructor(element) {
+                this.element = element;
+                this.shuffle = new Shuffle(element, {
+                    itemSelector: '.picture-item',
+                    sizer: element.querySelector('.my-sizer-element'),
+                });
+
+                this._activeFilters = [];
+                this.addFilterButtons();
+            }
+
+            addFilterButtons() {
+                const options = document.querySelector('.filter__btn');
+                if (!options) {
+                    return;
+                }
+
+                const filterButtons = Array.from(options.children);
+                const onClick = this._handleFilterClick.bind(this);
+                filterButtons.forEach((button) => {
+                    button.addEventListener('click', onClick, false);
+                });
+            }
+
+            _handleFilterClick(evt) {
+                const btn = evt.currentTarget;
+                const isActive = btn.classList.contains('active');
+                const btnGroup = btn.getAttribute('data-group');
+
+                this._removeActiveClassFromChildren(btn.parentNode);
+
+                let filterGroup;
+                if (isActive) {
+                    btn.classList.remove('active');
+                    filterGroup = Shuffle.ALL_ITEMS;
+                } else {
+                    btn.classList.add('active');
+                    filterGroup = btnGroup;
+                }
+
+                this.shuffle.filter(filterGroup);
+            }
+
+            _removeActiveClassFromChildren(parent) {
+                const {
+                    children
+                } = parent;
+                for (let i = children.length - 1; i >= 0; i--) {
+                    children[i].classList.remove('active');
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            window.demo = new Demo(document.getElementById('grid'));
+        });
+    </script>
 </body>
 </html>
