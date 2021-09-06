@@ -1,24 +1,5 @@
 "use strict";
 
-let acc = document.getElementsByClassName("accordion");
-let i;
-
-for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        let panel = this.nextElementSibling;
-        if (panel.style.maxHeight) {
-            panel.style.maxHeight = null;
-            panel.style.paddingTop = null;
-            panel.style.paddingBottom = null;
-        } else {
-            panel.style.maxHeight = (panel.scrollHeight + 25) + "px";
-            panel.style.paddingTop = 15 + "px";
-            panel.style.paddingBottom = 10 + "px";
-        }
-    });
-}
-
 (function ($) {
     $('.counter').countUp();
 
@@ -181,4 +162,23 @@ for (i = 0; i < acc.length; i++) {
 
         $(".slider-single").slick("slickGoTo", goToSingleSlide);
     });
+
+    let acc = document.getElementsByClassName("accordion");
+    let i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            let panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+                panel.style.paddingTop = null;
+                panel.style.paddingBottom = null;
+            } else {
+                panel.style.maxHeight = (panel.scrollHeight + 25) + "px";
+                panel.style.paddingTop = 15 + "px";
+                panel.style.paddingBottom = 10 + "px";
+            }
+        });
+    }
 })(jQuery)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+    <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,8 @@
 
 
 <body>
-<div class="overlay"></div>
-<header class="header">
+    <div class="overlay"></div>
+    <header class="header">
     <div id="nav" class="navbar">
         <div class="navbar-top">
             <div class="container">
@@ -80,8 +80,8 @@
     </div>
 </header>
 
-<main class="is-hot-home">
-    <div class="heading" style="background-image:url('img/inner-banner-background-image.webp');">
+    <main class="is-hot-home">
+        <div class="heading" style="background-image:url('img/inner-banner-background-image.webp');">
     <div class="container">
         <div class="heading-title">
             <h2 class="title">Projects</h2>
@@ -94,9 +94,9 @@
     </div>
 </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="main-content-full">
+        <div class="container">
+            <div class="row">
+                <div class="main-content-full">
     <div class="page-projects">
         <h2 class="projects__title section-title">Featured Projects</h2>
         <div class="filter">
@@ -182,11 +182,11 @@
         </div>
     </div>
 </div>
+            </div>
         </div>
-    </div>
-</main>
+    </main>
 
-<footer class="footer">
+    <footer class="footer">
     <div class="footer-main">
         <div class="container">
             <div class="footer-wrapper">
@@ -235,11 +235,73 @@
         </div>
     </div>
 </footer>
-<script src="js/libs.min.js"></script>
+    <script src="js/libs.min.js"></script>
 <script src="js/jquery.waypoints.min.js"></script>
 <script src="js/jquery.counterup.min.js"></script>
 
 <script src="js/main.js"></script>
 <script>AOS.init();</script>
+
+    <script>
+        var Shuffle = window.Shuffle;
+
+        class Demo {
+            constructor(element) {
+                this.element = element;
+                this.shuffle = new Shuffle(element, {
+                    itemSelector: '.picture-item',
+                    sizer: element.querySelector('.my-sizer-element'),
+                });
+
+                this._activeFilters = [];
+                this.addFilterButtons();
+            }
+
+            addFilterButtons() {
+                const options = document.querySelector('.filter__btn');
+                if (!options) {
+                    return;
+                }
+
+                const filterButtons = Array.from(options.children);
+                const onClick = this._handleFilterClick.bind(this);
+                filterButtons.forEach((button) => {
+                    button.addEventListener('click', onClick, false);
+                });
+            }
+
+            _handleFilterClick(evt) {
+                const btn = evt.currentTarget;
+                const isActive = btn.classList.contains('active');
+                const btnGroup = btn.getAttribute('data-group');
+
+                this._removeActiveClassFromChildren(btn.parentNode);
+
+                let filterGroup;
+                if (isActive) {
+                    btn.classList.remove('active');
+                    filterGroup = Shuffle.ALL_ITEMS;
+                } else {
+                    btn.classList.add('active');
+                    filterGroup = btnGroup;
+                }
+
+                this.shuffle.filter(filterGroup);
+            }
+
+            _removeActiveClassFromChildren(parent) {
+                const {
+                    children
+                } = parent;
+                for (let i = children.length - 1; i >= 0; i--) {
+                    children[i].classList.remove('active');
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            window.demo = new Demo(document.getElementById('grid'));
+        });
+    </script>
 </body>
 </html>
