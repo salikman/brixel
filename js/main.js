@@ -19,8 +19,8 @@
 
     $(document).on('click', function (e) {
         if (!(
-                ($(e.target).parents('.navbar__menu').length) ||
-                ($(e.target).hasClass('navbar__menu')) ||
+                ($(e.target).parents('.navbar-menu').length) ||
+                ($(e.target).hasClass('navbar-menu')) ||
                 ($(e.target).hasClass('navbar__collapse')))) {
             hideModals();
         }
